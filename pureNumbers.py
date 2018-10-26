@@ -18,27 +18,39 @@ import math
 
 #determine roasted coffee individual
 
-total_coffee_needed = 500
+total_coffee_needed = 400
 nic_needed = total_coffee_needed * 0.6
 
 #determine green coffee individual
 
-greennic = nic_needed / 0.83870968
+greennic_needed = nic_needed / 0.83870968
 
-#declare last batch
+#declare min/max_batch
 
+min_batch = 45
+max_batch = 62
 
+#round up green nic needed and add 3 for margin of error
 
-while(lb < 45):
-    b = 62
-    nic = nic / 0.83870968
-    tr = math.ceil(nic)
-    n = tr / b
-    x = [x for x in range(10000) if n - x > 0][-1]
-    r = n - x
-    lb = r * b
-    n = x + 1
+greennic_needed = math.ceil(greennic_needed)
 
+# number of roasts
 
-print("You need to do " + str(n) + " batches total.")
-print("You should do " +  str(n-1) + " batches of " + str(b) + " and 1 batch of " + str(lb))
+n_of_roasts = greennic_needed / max_batch
+
+# x is batch number minus remainder
+
+x = [x for x in range(10000) if n_of_roasts - x > 0][-1]
+
+# calculate remaining amount needed
+
+remainder = n_of_roasts - x
+
+# calculate last batch size
+
+last_batch = remainder * max_batch
+
+print(n_of_roasts)
+print(x +1)
+print(remainder)
+print(last_batch)
